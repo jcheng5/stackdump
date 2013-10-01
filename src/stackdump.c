@@ -3,6 +3,9 @@
 #include <R.h>
 #include <Rinternals.h>
 #include <R_ext/Parse.h>
+#include <R_ext/Boolean.h>
+
+int quit;
 
 void sigQuitHandler(int signal) {
 
@@ -21,10 +24,13 @@ void sigQuitHandler(int signal) {
   for(int i = 0; i < length(cmdexpr); i++)
     eval(VECTOR_ELT(cmdexpr, i), R_GlobalEnv);
   UNPROTECT(2);
-  exit(EXIT_FAILURE);
+
+  if (quit)
+    exit(EXIT_FAILURE);
 }
 
-extern SEXP registerSigQuitHandler(SEXP ignored) {
+extern SEXP registerSigQuitHandler(SEXP shouldQuit) {
+  quit = asLogical(shouldQuit) == TRUE;
   signal(SIGQUIT, sigQuitHandler);
   return R_NilValue;
 }

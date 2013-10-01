@@ -1,7 +1,9 @@
-init <- function(silent=FALSE) {
-  .Call(registerSigQuitHandler)
+# Very dangerous to pass quit=FALSE. Don't trust the process after that!
+init <- function(silent=FALSE, quit=TRUE) {
+  .Call(registerSigQuitHandler, quit)
   if (!isTRUE(silent)) {
-    message("Stack dump handler attached.\nSend SIGQUIT to print stack trace and exit.")
+    maybeExit <- ifelse(isTRUE(quit), " and exit", "")
+    message("Stack dump handler attached.\nSend SIGQUIT to print stack trace", maybeExit, ".")
   }
   invisible()
 }
