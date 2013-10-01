@@ -1,0 +1,3 @@
+useDynLib(stackdump, registerSigQuitHandler)
+export(init)
+

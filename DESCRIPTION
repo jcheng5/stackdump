@@ -1,0 +1,11 @@
+Package: stackdump
+Type: Package
+Title: Dump sys.calls to stderr and quit
+Version: 0.0.1
+Date: 2013-10-01
+Author: RStudio, Inc.
+Maintainer: Joe Cheng <joe@rstudio.com>
+Description: Provides a simple utility function for registering
+ a \code{SIGQUIT} handler that dumps the contents of \code{sys.call},
+ then kills the process.
+License: MIT
