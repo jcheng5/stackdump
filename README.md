@@ -5,7 +5,7 @@ Simple utility for R on Linux or Mac, that handles the SIGQUIT event by dumping 
 To initialize:
 
 ```r
-stackdump::init(quit = FALSE)
+stackdump::init()
 ```
 
 Then while your R code is running, you can run this from a shell:
@@ -16,4 +16,4 @@ kill -SIGQUIT <pid>
 
 This should cause your R console (or app log, if you're running a Shiny app on a server) to print a call stack.
 
-If the `quit` argument is `TRUE` (the default), then the R process will exit after printing the call stack. This is because stackdump works by executing a bunch of R code in a signal handler, and that's not technically a very safe thing to do. If you'd rather be safe than risk a subtly corrupted process, it's better to quit.
+If the `quit` argument is `TRUE` (the default is `FALSE`), then the R process will exit after printing the call stack. stackdump works by executing a bunch of R code in a signal handler, and that's not technically a very safe thing to do. If you'd rather be safe than risk a subtly corrupted process, it's better to quit.
